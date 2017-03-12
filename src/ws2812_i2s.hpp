@@ -8,7 +8,9 @@
 
 struct pixel;
 
-#ifndef ICACHE_FLASH_ATTR
+#include "common.hpp"
+
+#ifdef __linux__
 #define ICACHE_FLASH_ATTR
 #endif
 
@@ -30,6 +32,8 @@ struct pixel;
 //#define SK6812
 
 void ICACHE_FLASH_ATTR ws2812_init();
+
+void ws2812_brightness(int b);
 
 /**
  * Convert WS2812B GRB data to I2S samples. Driver is transmitting

@@ -10,14 +10,14 @@ FrameLimiter::FrameLimiter(int fps)
 bool FrameLimiter::skip()
 {
   uint32_t now = getCycleCount();
-  int32_t untilNextFrame = nextFrame - now;
-  if (untilNextFrame <= 0) {
-    nextFrame += cyclesPerFrame;
-    if (int32_t(nextFrame - now) < 0) {
-      nextFrame = now;
-    }
-    return false;
-  } else {
+  uint32_t untilNextFrame = nextFrame - now;
+  if (untilNextFrame < cyclesPerFrame) {
     return true;
   }
+  nextFrame += cyclesPerFrame;
+  untilNextFrame = nextFrame - now;
+  if (untilNextFrame >= cyclesPerFrame) {
+    nextFrame = now + cyclesPerFrame;
+  }
+  return false;
 }

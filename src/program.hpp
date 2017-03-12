@@ -15,6 +15,7 @@ public:
   }
   virtual Program* launch() = 0;
   static ProgramFactory* first;
+  static ProgramFactory* get(const char* name);
   ProgramFactory* next;
   const char* name;
 };

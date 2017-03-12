@@ -63,6 +63,7 @@ void fire_update()
   if (limiter.skip()) {
     return;
   }
+
   for (int x = 0; x < 24; ++x) {
     fire[25 * 24 + x] = rand() < (RAND_MAX / 3) ? 255 : 0;
   }

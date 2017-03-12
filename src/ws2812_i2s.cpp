@@ -225,6 +225,8 @@ static struct sdio_queue i2sBufDescOut[WS_BLOCKCOUNT];
 
 static uint32_t* i2sBlock;
 
+static uint16_t brightness = 256;
+
 // Initialize I2S subsystem for DMA circular buffer use
 void ICACHE_FLASH_ATTR ws2812_init()
 {
@@ -336,6 +338,7 @@ void ws2812_show(const pixel data[])
   uint8_t* buffer = (uint8_t*)&data[0];
   uint16_t buffersize = 3 * WS_PIXELS;
   buffersize = min(buffersize, uint16_t(WS_DATABYTES / WS_SAMPLESPERBIT));
+  uint16_t bright = brightness;
 
   const uint8_t* buf = buffer;
   const uint8_t* const end = buffer + buffersize;
@@ -344,14 +347,18 @@ void ws2812_show(const pixel data[])
   uint8_t *bufferpl = (uint8_t *)&i2sBlock[0];
 
   while (buf < end) {
-    uint16_t c1a = bitpatterns[*buf & 0x0f];
-    uint16_t c1b = bitpatterns[*buf++ >> 4];
-    uint16_t c2a = bitpatterns[*buf & 0x0f];
-    uint16_t c2b = bitpatterns[*buf++ >> 4];
-    uint16_t c3a = bitpatterns[*buf & 0x0f];
-    uint16_t c3b = bitpatterns[*buf++ >> 4];
-    uint16_t c4a = bitpatterns[*buf & 0x0f];
-    uint16_t c4b = bitpatterns[*buf++ >> 4];
+    uint8_t b1 = ((*buf++) * bright) >> 8;
+    uint16_t c1a = bitpatterns[b1 & 0x0f];
+    uint16_t c1b = bitpatterns[b1 >> 4];
+    uint8_t b2 = ((*buf++) * bright) >> 8;
+    uint16_t c2a = bitpatterns[b2 & 0x0f];
+    uint16_t c2b = bitpatterns[b2 >> 4];
+    uint8_t b3 = ((*buf++) * bright) >> 8;
+    uint16_t c3a = bitpatterns[b3 & 0x0f];
+    uint16_t c3b = bitpatterns[b3 >> 4];
+    uint8_t b4 = ((*buf++) * bright) >> 8;
+    uint16_t c4a = bitpatterns[b4 & 0x0f];
+    uint16_t c4b = bitpatterns[b4 >> 4];
 
 #define STEP1(x) (c##x##b >> 4)
 #define STEP2(x) ((c##x##b << 4) | (c##x##a>>8))
@@ -386,4 +393,9 @@ void ws2812_show(const pixel data[])
     *bufferpl++ = bitpatterns[btosend >> 4];
   }
 #endif
+}
+
+void ws2812_brightness(int b)
+{
+  brightness = b;
 }

@@ -3,19 +3,14 @@
 #include "ws2812_i2s.hpp"
 #include "program.hpp"
 
-#include "fire.hpp"
-#include "balls.hpp"
-#include "framelimiter.hpp"
-#include "moire.hpp"
-
-FrameLimiter limit(50);
-
 static pixel* frame;
 pixel* pixels;
 
 Program* current = nullptr;
-uint32_t runTime = 0;
+uint32_t startTime = 0;
 ProgramFactory* currentFactory = nullptr;
+
+// #define TEST_PROGRAM "Fire"
 
 void neomatrix_init()
 {
@@ -25,21 +20,33 @@ void neomatrix_init()
   // fire_init();
   // balls_init();
 
+#ifdef TEST_PROGRAM
+  currentFactory = ProgramFactory::get(TEST_PROGRAM);
+#else
   currentFactory = ProgramFactory::first;
+#endif
   current = currentFactory->launch();
-  runTime = getCycleCount();
+  startTime = millis();
 }
 
-#define RUNTIME HZ * 3
+#define RUNTIME 16000
+#define FADETIME 2000
+#define FADEIN FADETIME
+#define FADEOUT (RUNTIME-FADETIME)
+#define MAX_BRIGHT 128
 
-void neomatrix_run()
+void program_loop()
 {
-  // if (limit.skip())
-  //   return;
-
-  uint32_t m = getCycleCount();
-
-  if (m - runTime > RUNTIME) {
+  uint32_t now = millis();
+  uint32_t prgTime = now - startTime;
+  if (prgTime < FADEIN) {
+    ws2812_brightness((prgTime * MAX_BRIGHT) / FADEIN);
+  } else if (prgTime < FADEOUT) {
+    ws2812_brightness(MAX_BRIGHT);
+  } else if (prgTime < RUNTIME) {
+    ws2812_brightness(((RUNTIME - prgTime) * MAX_BRIGHT) / FADETIME);
+  } else {
+    ws2812_brightness(0);
     delete current;
     currentFactory = currentFactory->next;
     if (currentFactory == nullptr) {
@@ -47,21 +54,21 @@ void neomatrix_run()
     }
     current = currentFactory->launch();
     printf("running %s\n", currentFactory->name);
-    runTime = m;
+    startTime = now;
   }
+}
 
-  // fire_update();
-  // balls_update();
+void neomatrix_run()
+{
+  uint32_t m = getCycleCount();
+#ifndef TEST_PROGRAM
+  program_loop();
+#endif
   current->run();
-
   uint32_t a = getCycleCount();
-  Serial.println(a - m);
-
-  // uint32_t m = (millis() * WS_PIXELS) / 500;
-  // for (int i = 0; i < WS_PIXELS; ++i) {
-  //   frame[i].r = ((i + m) % WS_PIXELS) < WS_PIXELS/3 ? 64 : 0;
-  //   frame[i].g = ((i + m + WS_PIXELS / 3) % WS_PIXELS) < WS_PIXELS/3 ? 64 : 0;
-  //   frame[i].b = ((i + m + 2 * WS_PIXELS / 3) % WS_PIXELS) < WS_PIXELS/3 ? 64 : 0;
-  // }
+  uint32_t time = a - m;
+  if (time * 50 > HZ) {
+    Serial.printf("Slow render %u\n", time);
+  }
   ws2812_show(frame);
 }
