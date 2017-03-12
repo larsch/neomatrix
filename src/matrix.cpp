@@ -13,15 +13,18 @@ static uint16_t random_speed()
 TheMatrix::TheMatrix()
   : limiter(50)
 {
-  for (int i = 0; i < 192; ++i ) {
+
+#define WHITESTART 224
+
+  for (int i = 0; i < WHITESTART; ++i ) {
     palette[i].r = 0;
-    palette[i].g = (i * 256) / 192;
+    palette[i].g = (i * 256) / WHITESTART;
     palette[i].b = 0;
   }
-  for (int i = 192; i < 256; ++i) {
-    palette[i].r = ((i - 192) * 256) / 64;
+  for (int i = WHITESTART; i < 256; ++i) {
+    palette[i].r = ((i - WHITESTART) * 256) / (256 - WHITESTART);
     palette[i].g = 255;
-    palette[i].b = ((i - 192) * 256) / 64;
+    palette[i].b = ((i - WHITESTART) * 256) / (256 - WHITESTART);
   }
   for (int i = 0; i < 24; ++i) {
     pos[i] = (24llu * 256 * rand()) / RAND_MAX;
