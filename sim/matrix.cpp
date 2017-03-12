@@ -14,11 +14,13 @@
 
 static const uint8_t* pixels;
 static int brightness = 256;
-void ws2812_brightness(int b) {
+void ws2812_brightness(int b)
+{
   brightness = b;
 }
 
-inline uint8_t dim(uint8_t v) {
+inline uint8_t dim(uint8_t v)
+{
   return (v * brightness) >> 8;
 }
 
@@ -33,7 +35,9 @@ void ws2812_show(const pixel pix[])
 
 void render(SDL_Surface* surface)
 {
-  if (pixels == nullptr) return;
+  if (pixels == nullptr) {
+    return;
+  }
   SDL_FillRect(surface, nullptr, SDL_MapRGB(surface->format, 0x00, 0x00, 0x00));
   const uint8_t* p = pixels;
   for (int y = 0; y < H; ++y) {
@@ -58,8 +62,7 @@ uint8_t keyState;
 
 void handleKeyDownEvent(SDL_KeyboardEvent& e)
 {
-  switch (e.keysym.sym)
-  {
+  switch (e.keysym.sym) {
   case SDLK_UP:
     keyState |= 4;
     break;
@@ -84,8 +87,7 @@ void handleKeyDownEvent(SDL_KeyboardEvent& e)
 
 void handleKeyUpEvent(SDL_KeyboardEvent& e)
 {
-  switch (e.keysym.sym)
-  {
+  switch (e.keysym.sym) {
   case SDLK_UP:
     keyState &= ~4;
     break;
@@ -127,7 +129,7 @@ int main()
   }
 
   SDL_Window *win = SDL_CreateWindow("Hello World!", 100, 100, SCRW, SCRH, SDL_WINDOW_SHOWN);
-  if (win == nullptr){
+  if (win == nullptr) {
     std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
     SDL_Quit();
     return 1;
@@ -141,8 +143,9 @@ int main()
   SDL_Surface* screenSurface = SDL_GetWindowSurface(win);
   while (!quit) {
     SDL_Event e;
-    while (SDL_PollEvent(&e) != 0)
+    while (SDL_PollEvent(&e) != 0) {
       handleEvent(e);
+    }
     render(screenSurface);
 
     neomatrix_run();
