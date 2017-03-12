@@ -100,7 +100,7 @@ void moire_run()
         // pixels[y * 24 + x][i] = e;
       }
       pixel& p = pixels[y * 24 + x];
-      p = hsv2rgb((hueCounter() + level) % 360, 255, 64);
+      p = hsv2rgb((hueCounter() + level) % 360, 255, 255);
       // p.r = p.g = p.b = level;
     }
   }

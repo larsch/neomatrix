@@ -13,6 +13,14 @@
 #define SCRH (H*(PXW+PXM)+PXM)
 
 static const uint8_t* pixels;
+static int brightness = 256;
+void ws2812_brightness(int b) {
+  brightness = b;
+}
+
+inline uint8_t dim(uint8_t v) {
+  return (v * brightness) >> 8;
+}
 
 void ws2812_init()
 {
@@ -36,7 +44,10 @@ void render(SDL_Surface* surface)
         PXW,
         PXW
       };
-      SDL_FillRect(surface, &rect, SDL_MapRGB(surface->format, p[1], p[0], p[2]));
+      SDL_FillRect(surface, &rect, SDL_MapRGB(surface->format,
+                                              dim(p[1]),
+                                              dim(p[0]),
+                                              dim(p[2])));
       p += 3;
     }
   }
@@ -138,9 +149,9 @@ int main()
 
     SDL_UpdateWindowSurface(win);
 
-    int timeLeft = nextUpdate - SDL_GetTicks();
-    if (timeLeft > 0)
-      SDL_Delay(timeLeft);
+    // int timeLeft = nextUpdate - SDL_GetTicks();
+    // if (timeLeft > 0)
+    //   SDL_Delay(timeLeft);
     nextUpdate += updateInterval;
   }
 

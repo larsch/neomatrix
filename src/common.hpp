@@ -30,7 +30,17 @@ inline uint32_t getCycleCount(void)
 }
 
 #ifdef __linux__
+inline uint32_t millis()
+{
+  timespec ts;
+  clock_gettime(CLOCK_MONOTONIC, &ts);
+  return ts.tv_sec * uint64_t(1000) + ts.tv_nsec / 1000000;
+}
+#endif
+
+#ifdef __linux__
 #include <iostream>
+#include <cstdarg>
 class SerialPort
 {
 public:
@@ -43,6 +53,13 @@ public:
   void println(const T& t)
   {
     std::cout << t << std::endl;
+  }
+  void printf(const char* fmt, ...)
+  {
+    va_list ap;
+    va_start(ap, fmt);
+    vprintf(fmt, ap);
+    va_end(ap);
   }
 };
 extern SerialPort Serial;
