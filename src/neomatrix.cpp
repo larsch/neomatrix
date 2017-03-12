@@ -5,6 +5,7 @@
 #include "fire.hpp"
 #include "balls.hpp"
 #include "framelimiter.hpp"
+#include "moire.hpp"
 
 FrameLimiter limit(50);
 
@@ -17,17 +18,21 @@ void neomatrix_init()
   frame = new pixel[WS_PIXELS];
   pixels = frame + 2;
   // fire_init();
-  balls_init();
+  // balls_init();
+  moire_init();
 }
 
 void neomatrix_run()
 {
-  if (limit.skip())
-    return;
-  // fire_update();
+  // if (limit.skip())
+  //   return;
 
   uint32_t m = getCycleCount();
-  balls_update();
+
+  // fire_update();
+  // balls_update();
+  moire_run();
+
   uint32_t a = getCycleCount();
   Serial.println(a - m);
 
