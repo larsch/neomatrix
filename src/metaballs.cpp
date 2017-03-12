@@ -6,25 +6,16 @@
 #include <cmath>
 #include "display.hpp"
 
-static uint8_t* gm1;
-static uint8_t* gm2;
-
-void metaballs_init()
+Metaballs::Metaballs()
 {
-  gm1 = (uint8_t*)malloc(256);
-  gm2 = (uint8_t*)malloc(256);
   for (int i = 0; i < 255; ++i) {
     gm1[i] = 255.0 * pow(i / 255.0, 2.2);
     gm2[i] = 255.0 * pow(i / 255.0, 1.0 / 2.2);
   }
 }
 
-void metaballs_destroy()
+Metaballs::~Metaballs()
 {
-  free(gm1);
-  gm1 = nullptr;
-  free(gm2);
-  gm2 = nullptr;
 }
 
 int32_t walk(int32_t w)
@@ -33,7 +24,7 @@ int32_t walk(int32_t w)
   return x < 0 ? -x : x;
 }
 
-static uint32_t interp(int lvl, int max, uint32_t c1, uint32_t c2)
+uint32_t Metaballs::interp(int lvl, int max, uint32_t c1, uint32_t c2)
 {
   uint8_t f1 = (lvl * 255) / max;
   uint8_t f2 = 255 - f1;
@@ -52,7 +43,7 @@ static uint32_t interp(int lvl, int max, uint32_t c1, uint32_t c2)
   return (r << 16) + (g << 8) + b;
 }
 
-void metaballs_update()
+void Metaballs::run()
 {
   static Counter<4 * 256, 48 * 256> c1x;
   static Counter<3 * 256, 48 * 256> c1y;
@@ -137,22 +128,5 @@ void metaballs_update()
   // if (upKeyPressed())
   //   setMode(MODE_FIRE);
 }
-
-class Metaballs : public Program
-{
-public:
-  Metaballs()
-  {
-    metaballs_init();
-  }
-  ~Metaballs()
-  {
-    metaballs_destroy();
-  }
-  virtual void run()
-  {
-    metaballs_update();
-  }
-};
 
 REGISTER_PROGRAM(Metaballs);
