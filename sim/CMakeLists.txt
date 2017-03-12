@@ -16,6 +16,8 @@ add_executable(matrix
   ../src/fire.hpp
   ../src/framelimiter.cpp
   ../src/framelimiter.hpp
+  ../src/moire.cpp
+  ../src/moire.hpp
   ../src/neomatrix.cpp
   ../src/neomatrix.hpp
   # logo.rgb
