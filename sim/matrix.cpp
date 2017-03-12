@@ -123,6 +123,7 @@ void handleEvent(SDL_Event& e)
 
 int main()
 {
+  srand(time(NULL));
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
     std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
     return 1;

@@ -5,6 +5,7 @@
 #include "program.hpp"
 #include <cmath>
 #include "display.hpp"
+#include "hsv2rgb.hpp"
 
 Metaballs::Metaballs()
 {
@@ -12,6 +13,9 @@ Metaballs::Metaballs()
     gm1[i] = 255.0 * pow(i / 255.0, 2.2);
     gm2[i] = 255.0 * pow(i / 255.0, 1.0 / 2.2);
   }
+  int hue = (uint64_t(360) * rand()) / RAND_MAX;
+  c2 = hsv2rgb(hue, 255, 128);
+  c1 = hsv2rgb((hue + 32) % 360, 128, 128 + 64);
 }
 
 Metaballs::~Metaballs()
@@ -24,23 +28,20 @@ int32_t walk(int32_t w)
   return x < 0 ? -x : x;
 }
 
-uint32_t Metaballs::interp(int lvl, int max, uint32_t c1, uint32_t c2)
+pixel Metaballs::interp(int lvl, int max, pixel c1, pixel c2)
 {
   uint8_t f1 = (lvl * 255) / max;
   uint8_t f2 = 255 - f1;
-  uint8_t r1 = c1 >> 16;
-  uint8_t r2 = c2 >> 16;
-  uint8_t g1 = c1 >> 8;
-  uint8_t g2 = c2 >> 8;
-  uint8_t b1 = c1;
-  uint8_t b2 = c2;
-  // uint8_t r = (r1 * f2 + r2 * f1) / 256;
-  // uint8_t g = (g1 * f2 + g2 * f1) / 256;
-  // uint8_t b = (b1 * f2 + b2 * f1) / 256;
+  uint8_t r1 = c1.r;
+  uint8_t r2 = c2.r;
+  uint8_t g1 = c1.g;
+  uint8_t g2 = c2.g;
+  uint8_t b1 = c1.b;
+  uint8_t b2 = c2.b;
   uint8_t r = gm2[(gm1[r1] * f2 + gm1[r2] * f1) / 256];
   uint8_t g = gm2[(gm1[g1] * f2 + gm1[g2] * f1) / 256];
   uint8_t b = gm2[(gm1[b1] * f2 + gm1[b2] * f1) / 256];
-  return (r << 16) + (g << 8) + b;
+  return pixel{g, r, b};
 }
 
 void Metaballs::run()
@@ -71,26 +72,15 @@ void Metaballs::run()
       uint32_t f3 = 16777216 / d3;
 
       uint32_t s = f1 + f2 + f3;
-      // uint8_t level = s > 4096 ? 0x40 : (s / 64); // s > 2048 ? 0x20 : 0x00;
-      // uint8_t level = (s > 255 ? 255 : s) / 4;
 
-#if 1
-#define C1 0x00b000
-#define C2 0x004060
-#define C3 0x000000
+#define C1 c1
+#define C2 c2
+#define C3 pixel{0,0,0}
 #define L1 8192
-#define L2 5120
+#define L2 (2.5*1024)
 #define L3 2048
-#else
-#define C1 0x606005
-#define C2 0x401000
-#define C3 0x000000
-#define L1 8192
-#define L2 2048
-#define L3 1024
-#endif
 
-      uint32_t c;
+      pixel c;
       if (s >= L1) {
         c = C1;
       } else if (s >= L2) {
@@ -100,33 +90,9 @@ void Metaballs::run()
       } else {
         c = C3;
       }
-      // uint32_t c;
-      // if (s > 8192)
-      //   c = 0x606005;
-      // else if (s > 2048)
-      //   // c = 0x404000;
-      //   c = interp((s - 2048), (8192-2048), 0x401000, 0x606005);
-      // else if (s > 1024)
-      //   // c = 0x401000;
-      //   c = interp(s - 1024, 1024, 0x000000, 0x401000);
-      // else
-      //   c = 0x000000;
-      p->g = c >> 8;
-      p->r = c >> 16;
-      p->b = c;
-      ++p;
-      // *p++ = c >> 8;               //
-      // *p++ = c >> 16;
-      // *p++ = c;
+      *p++ = c;
     }
   }
-
-  // if (fireKeyPressed())
-  //    setMode(MODE_SNAKE);
-  // if (leftKeyPressed())
-  //    setMode(MODE_LOGO_SCROLL);
-  // if (upKeyPressed())
-  //   setMode(MODE_FIRE);
 }
 
 REGISTER_PROGRAM(Metaballs);
