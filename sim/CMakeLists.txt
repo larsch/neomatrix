@@ -16,6 +16,8 @@ add_executable(matrix
   ../src/fire.hpp
   ../src/framelimiter.cpp
   ../src/framelimiter.hpp
+  ../src/hsv2rgb.cpp
+  ../src/hsv2rgb.hpp
   ../src/matrix.cpp
   ../src/matrix.hpp
   ../src/metaballs.cpp

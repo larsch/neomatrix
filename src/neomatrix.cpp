@@ -10,7 +10,7 @@ Program* current = nullptr;
 uint32_t startTime = 0;
 ProgramFactory* currentFactory = nullptr;
 
-#define TEST_PROGRAM "Metaballs"
+// #define TEST_PROGRAM "Metaballs"
 
 void neomatrix_init()
 {
