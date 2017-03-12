@@ -1,8 +1,11 @@
 #include <cmath>
 #include "display.hpp"
 #include "counter.hpp"
+#include "program.hpp"
 
-struct pt { int x, y; };
+struct pt {
+  int x, y;
+};
 
 
 uint8_t sine[256];
@@ -11,13 +14,15 @@ uint8_t sine[256];
 
 void moire_init()
 {
-  for (int i = 0; i < 256; ++i)
+  for (int i = 0; i < 256; ++i) {
     sine[i] = (uint8_t)(128.0 + 127.99 * sin((i * TAU) / 256.0));
+  }
 }
 
 Counter<64, 65565> c;
 
-static unsigned isq(unsigned x) {
+static unsigned isq(unsigned x)
+{
   unsigned l = x >> 12;
   unsigned d = (4096 + l) >> 1;
   l = x / d;
@@ -27,14 +32,15 @@ static unsigned isq(unsigned x) {
   return d;
 }
 
-inline int iabs(int i) {
+inline int iabs(int i)
+{
   return i < 0 ? -i : i;
 }
 
 pixel hsv2rgb(int h, uint8_t s, uint8_t v)
 {
   if (s == 0)
-    return pixel{v,v,v};
+    return pixel{v, v, v};
 
   int hh = (h % 60);
 
@@ -43,19 +49,26 @@ pixel hsv2rgb(int h, uint8_t s, uint8_t v)
   uint8_t t = (v * (15300 - (s * (59 - hh)))) / (256 * 60);
 
   switch (h / 60) {
-  case 0: return pixel{t,v,p};
-  case 1: return pixel{v,q,p};
-  case 2: return pixel{v,p,t};
-  case 3: return pixel{q,p,v};
-  case 4: return pixel{p,t,v};
-  default: return pixel{p,v,q};
+  case 0:
+    return pixel{t, v, p};
+  case 1:
+    return pixel{v, q, p};
+  case 2:
+    return pixel{v, p, t};
+  case 3:
+    return pixel{q, p, v};
+  case 4:
+    return pixel{p, t, v};
+  default:
+    return pixel{p, v, q};
   }
 }
 
 Counter<32, 360> hueCounter;
 
 template<int T>
-int sawtooth(int v) {
+int sawtooth(int v)
+{
   return T - iabs(v % (2 * T) - T);
 }
 
@@ -64,10 +77,14 @@ void moire_run()
   int t = c();
 
   pt pts[2] = {
-    { 6 * 256 + sine[((t * 9 + 2391)/8) % 256] * 12,
-      6 * 256 + sine[((t * 3 + 7232)/8) % 256] * 12 },
-    { 6 * 256 + sine[((t * 5 + 1243)/8) % 256] * 12,
-      6 * 256 + sine[((t * 7 + 6314)/8) % 256] * 12 }
+    {
+      6 * 256 + sine[((t * 9 + 2391) / 8) % 256] * 12,
+      6 * 256 + sine[((t * 3 + 7232) / 8) % 256] * 12
+    },
+    {
+      6 * 256 + sine[((t * 5 + 1243) / 8) % 256] * 12,
+      6 * 256 + sine[((t * 7 + 6314) / 8) % 256] * 12
+    }
   };
 
   for (int y = 0; y < 24; ++y) {
@@ -88,3 +105,19 @@ void moire_run()
     }
   }
 }
+
+class Moire : public Program
+{
+public:
+  Moire()
+  {
+    moire_init();
+  }
+  virtual ~Moire() {}
+  virtual void run()
+  {
+    moire_run();
+  }
+};
+
+REGISTER_PROGRAM(Moire);

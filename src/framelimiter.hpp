@@ -3,7 +3,8 @@
 
 #include <stdint.h>
 
-class FrameLimiter {
+class FrameLimiter
+{
 public:
   FrameLimiter(int fps);
   bool skip();

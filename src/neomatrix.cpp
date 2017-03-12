@@ -1,6 +1,7 @@
 #include "common.hpp"
 #include "pixel.hpp"
 #include "ws2812_i2s.hpp"
+#include "program.hpp"
 
 #include "fire.hpp"
 #include "balls.hpp"
@@ -12,6 +13,10 @@ FrameLimiter limit(50);
 static pixel* frame;
 pixel* pixels;
 
+Program* current = nullptr;
+uint32_t runTime = 0;
+ProgramFactory* currentFactory = nullptr;
+
 void neomatrix_init()
 {
   ws2812_init();
@@ -19,8 +24,13 @@ void neomatrix_init()
   pixels = frame + 2;
   // fire_init();
   // balls_init();
-  moire_init();
+
+  currentFactory = ProgramFactory::first;
+  current = currentFactory->launch();
+  runTime = getCycleCount();
 }
+
+#define RUNTIME HZ * 3
 
 void neomatrix_run()
 {
@@ -29,9 +39,20 @@ void neomatrix_run()
 
   uint32_t m = getCycleCount();
 
+  if (m - runTime > RUNTIME) {
+    delete current;
+    currentFactory = currentFactory->next;
+    if (currentFactory == nullptr) {
+      currentFactory = ProgramFactory::first;
+    }
+    current = currentFactory->launch();
+    printf("running %s\n", currentFactory->name);
+    runTime = m;
+  }
+
   // fire_update();
   // balls_update();
-  moire_run();
+  current->run();
 
   uint32_t a = getCycleCount();
   Serial.println(a - m);

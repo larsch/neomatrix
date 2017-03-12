@@ -7,7 +7,8 @@ struct pixel {
   uint8_t g;
   uint8_t r;
   uint8_t b;
-  uint8_t& operator[](int i) {
+  uint8_t& operator[](int i)
+  {
     switch (i) {
     case 0:
       return g;

@@ -2,7 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "pixel.hpp"
+#include "program.hpp"
+#include "framelimiter.hpp"
 
+static FrameLimiter limiter(50);
 static uint8_t* palette;
 static uint8_t* fire;
 
@@ -57,6 +60,9 @@ void fire_destroy()
 
 void fire_update()
 {
+  if (limiter.skip()) {
+    return;
+  }
   for (int x = 0; x < 24; ++x) {
     fire[25 * 24 + x] = rand() < (RAND_MAX / 3) ? 255 : 0;
   }
@@ -83,3 +89,22 @@ void fire_update()
       memcpy(&pixels[y * 24 + x], &PAL(fire[y * 24 + x], 0), 3);
     }
 }
+
+class Fire : public Program
+{
+public:
+  Fire()
+  {
+    fire_init();
+  }
+  ~Fire()
+  {
+    fire_destroy();
+  }
+  virtual void run()
+  {
+    fire_update();
+  }
+};
+
+REGISTER_PROGRAM(Fire);

@@ -3,9 +3,11 @@
 // Generic counter with compile-time choice of rate (ticks per second)
 // and period (ticks before wrap-around).
 template<int RATE, int PERIOD>
-class Counter {
+class Counter
+{
 public:
-  uint32_t operator()() {
+  uint32_t operator()()
+  {
     uint32_t current = getCycleCount();
     const uint32_t divisor = HZ / RATE;
     residual += current - previous;
