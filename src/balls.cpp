@@ -24,8 +24,10 @@ extern pixel* pixels;
 // };
 
 struct ball {
-  int x; int y;
-  int vx; int vy;
+  int x;
+  int y;
+  int vx;
+  int vy;
 };
 
 static ball balls[3];

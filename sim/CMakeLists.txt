@@ -18,6 +18,8 @@ add_executable(matrix
   ../src/framelimiter.hpp
   ../src/moire.cpp
   ../src/moire.hpp
+  ../src/program.cpp
+  ../src/program.hpp
   ../src/neomatrix.cpp
   ../src/neomatrix.hpp
   # logo.rgb
