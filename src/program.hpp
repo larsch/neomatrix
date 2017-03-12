@@ -1,3 +1,6 @@
+#ifndef _program_hpp_
+#define _program_hpp_
+
 class Program
 {
 public:
@@ -33,3 +36,5 @@ public:
 
 #define REGISTER_PROGRAM(cls) \
   static ProgramFile<cls> cls##Program(#cls)
+
+#endif // _program_hpp_
