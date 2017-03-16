@@ -1,3 +1,10 @@
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * Pixel structure
+ */
+
 #ifndef _pixel_hpp_
 #define _pixel_hpp_
 

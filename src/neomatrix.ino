@@ -1,3 +1,10 @@
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * Arduino/ESP8266 Sketch
+ */
+
 #include "neomatrix.hpp"
 #include "wifi.hpp"
 

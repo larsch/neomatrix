@@ -1,3 +1,10 @@
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * Simulator
+ */
+
 #include <SDL.h>
 #include <iostream>
 #include <../src/pixel.hpp>
@@ -153,9 +160,6 @@ int main()
 
     SDL_UpdateWindowSurface(win);
 
-    // int timeLeft = nextUpdate - SDL_GetTicks();
-    // if (timeLeft > 0)
-    //   SDL_Delay(timeLeft);
     nextUpdate += updateInterval;
   }
 

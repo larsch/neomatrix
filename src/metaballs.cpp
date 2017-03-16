@@ -1,3 +1,10 @@
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * Metaballs
+ */
+
 #include "common.hpp"
 #include "metaballs.hpp"
 #include "display.hpp"

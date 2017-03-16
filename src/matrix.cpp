@@ -1,3 +1,10 @@
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * The Matrix
+ */
+
 #include "common.hpp"
 #include "matrix.hpp"
 #include "display.hpp"

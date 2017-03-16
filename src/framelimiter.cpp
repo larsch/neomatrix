@@ -1,3 +1,10 @@
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * Frame limiter
+ */
+
 #include "framelimiter.hpp"
 #include "common.hpp"
 

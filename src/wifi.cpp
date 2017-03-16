@@ -1,3 +1,10 @@
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * WiFi
+ */
+
 #include "wifi.hpp"
 #include "ota.hpp"
 
@@ -15,9 +22,7 @@ void wifi_init()
 
 void wifi_run()
 {
-  if (WiFiMulti.run() != WL_CONNECTED) {
-    delay(100);
-  } else {
+  if (WiFiMulti.run() == WL_CONNECTED) {
     if (!wifiConnected) {
       Serial.print("Connected as ");
       Serial.println(WiFi.localIP());

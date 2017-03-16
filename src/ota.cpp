@@ -1,10 +1,22 @@
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * Over-the-air update
+ */
+
 #include "ota.hpp"
+#include "text.hpp"
+#include "display.hpp"
+#include "ws2812_i2s.hpp"
 #include <ArduinoOTA.h>
 #include <ESP8266mDNS.h>
 
 static void message(const char* msg)
 {
   Serial.println(msg);
+  mprint(msg);
+  ws2812_show(pixels);
 }
 
 void ota_init()

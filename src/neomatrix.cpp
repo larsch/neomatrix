@@ -1,3 +1,10 @@
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * Main display code
+ */
+
 #include "common.hpp"
 #include "pixel.hpp"
 #include "ws2812_i2s.hpp"
@@ -10,7 +17,7 @@ Program* current = nullptr;
 uint32_t startTime = 0;
 ProgramFactory* currentFactory = nullptr;
 
-// #define TEST_PROGRAM "Metaballs"
+// #define TEST_PROGRAM "Lemmings"
 
 void neomatrix_init()
 {

@@ -1,3 +1,10 @@
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * Program base
+ */
+
 #ifndef _program_hpp_
 #define _program_hpp_
 

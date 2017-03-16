@@ -1,7 +1,13 @@
-// Copyright 2015 <>< Charles Lohr, See LICENSE file.
-// WS2812 sender that abuses the I2S interface on the WS2812.
-//
-// Modified by Lars Christensen <larsch@belunktum.dk>
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * W2812B I2S Driver
+ *
+ * Copyright 2015 <>< Charles Lohr, See LICENSE file.
+ * WS2812 sender that abuses the I2S interface on the WS2812.
+ * https://github.com/cnlohr/esp8266ws2812i2s
+ */
 
 #ifndef _ws2812_i2s_hpp
 #define _ws2812_i2s_hpp

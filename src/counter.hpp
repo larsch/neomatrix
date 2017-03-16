@@ -1,7 +1,14 @@
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * Scalable Counter
+ */
+
 #include "common.hpp"
 
-// Generic counter with compile-time choice of rate (ticks per second)
-// and period (ticks before wrap-around).
+// Generic scalable tick counter with compile-time choice of RATE
+// (ticks per second) and PERIOD (ticks before wrap-around).
 template<int RATE, int PERIOD>
 class Counter
 {

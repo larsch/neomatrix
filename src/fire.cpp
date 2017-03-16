@@ -1,3 +1,10 @@
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * Fire Animation
+ */
+
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
