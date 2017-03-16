@@ -9,6 +9,7 @@
 #include <iostream>
 #include <../src/pixel.hpp>
 #include <../src/neomatrix.hpp>
+#include "../src/coord.hpp"
 
 #define W 24
 #define H 24
@@ -16,8 +17,8 @@
 #define BUFSZ (SZ*3)
 #define PXW 16
 #define PXM 2
-#define SCRW (W*(PXW+PXM)+PXM)
-#define SCRH (H*(PXW+PXM)+PXM)
+#define SCRW 1000
+#define SCRH 400
 
 static const uint8_t* pixels;
 static int brightness = 256;
@@ -47,20 +48,21 @@ void render(SDL_Surface* surface)
   }
   SDL_FillRect(surface, nullptr, SDL_MapRGB(surface->format, 0x00, 0x00, 0x00));
   const uint8_t* p = pixels;
-  for (int y = 0; y < H; ++y) {
-    for (int x = 0; x < W; ++x) {
-      SDL_Rect rect = {
-        PXM + x * (PXM + PXW),
-        PXM + y * (PXM + PXW),
-        PXW,
-        PXW
-      };
-      SDL_FillRect(surface, &rect, SDL_MapRGB(surface->format,
-                                              dim(p[1]),
-                                              dim(p[0]),
-                                              dim(p[2])));
-      p += 3;
-    }
+  for (int i = 0; i < COUNT; ++i) {
+    float x = coord[i][0];
+    float y = coord[i][1];
+    float scale = 0.5;
+    SDL_Rect rect = {
+      int(PXM + x * scale),
+      int(PXM + y * scale),
+      PXW,
+      PXW
+    };
+    SDL_FillRect(surface, &rect, SDL_MapRGB(surface->format,
+                                            dim(p[1]),
+                                            dim(p[0]),
+                                            dim(p[2])));
+    p += 3;
   }
 }
 

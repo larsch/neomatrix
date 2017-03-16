@@ -17,7 +17,7 @@ Program* current = nullptr;
 uint32_t startTime = 0;
 ProgramFactory* currentFactory = nullptr;
 
-// #define TEST_PROGRAM "Lemmings"
+// #define TEST_PROGRAM "Hal9kWipe"
 
 void neomatrix_init()
 {
@@ -37,10 +37,10 @@ void neomatrix_init()
 }
 
 #define RUNTIME 16000
-#define FADETIME 2000
+#define FADETIME 1000
 #define FADEIN FADETIME
 #define FADEOUT (RUNTIME-FADETIME)
-#define MAX_BRIGHT 128
+#define MAX_BRIGHT 64
 
 void program_loop()
 {

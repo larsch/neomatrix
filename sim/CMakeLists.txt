@@ -10,29 +10,34 @@ include_directories(. ../app)
 add_executable(matrix
   matrix.cpp
   matrix.hpp
-  ../src/balls.cpp
-  ../src/balls.hpp
+  ../src/coord.cpp ../src/coord.hpp
+  # ../src/balls.cpp
+  # ../src/balls.hpp
   ../src/common.cpp
   ../src/common.hpp
-  ../src/fire.cpp
-  ../src/fire.hpp
-  ../src/lemmings.cpp
-  ../src/lemmings.hpp
+  # ../src/fire.cpp
+  # ../src/fire.hpp
+  # ../src/lemmings.cpp
+  # ../src/lemmings.hpp
   ../src/framelimiter.cpp
   ../src/framelimiter.hpp
   ../src/hsv2rgb.cpp
   ../src/hsv2rgb.hpp
-  ../src/matrix.cpp
-  ../src/matrix.hpp
-  ../src/metaballs.cpp
-  ../src/metaballs.hpp
-  ../src/moire.cpp
-  ../src/moire.hpp
+  # ../src/matrix.cpp
+  # ../src/matrix.hpp
+  # ../src/metaballs.cpp
+  # ../src/metaballs.hpp
+  # ../src/moire.cpp
+  # ../src/moire.hpp
   ../src/program.cpp
   ../src/program.hpp
   ../src/text.cpp
   ../src/text.hpp
   ../src/neomatrix.cpp
   ../src/neomatrix.hpp
+  ../src/hal9k.cpp
+  ../src/hal9k-glitter.cpp
+  ../src/hal9k-rainbow.cpp
+  ../src/hal9k-wipe.cpp
   )
 target_link_libraries(matrix ${SDL2_LIBRARY})
