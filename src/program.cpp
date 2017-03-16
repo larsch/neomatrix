@@ -1,3 +1,10 @@
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * Program base
+ */
+
 #include "program.hpp"
 #include <string.h>
 

@@ -1,3 +1,10 @@
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * Common code
+ */
+
 #ifndef _common_hpp_
 #define _common_hpp_
 

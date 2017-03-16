@@ -1,3 +1,10 @@
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * WiFi
+ */
+
 #ifndef _wifi_hpp_
 #define _wifi_hpp_
 

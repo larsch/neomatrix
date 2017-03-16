@@ -1,6 +1,8 @@
+# Neomatrix - Copyright (C) 2017 Lars Christensen
+# MIT Licensed
 cmake_minimum_required(VERSION 3.6)
 project(matrix)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "../sdl2-cmake-scripts")
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/sdl2-cmake-scripts")
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
 add_compile_options(-Wall -Wextra -pedantic -Werror)
@@ -14,6 +16,8 @@ add_executable(matrix
   ../src/common.hpp
   ../src/fire.cpp
   ../src/fire.hpp
+  ../src/lemmings.cpp
+  ../src/lemmings.hpp
   ../src/framelimiter.cpp
   ../src/framelimiter.hpp
   ../src/hsv2rgb.cpp
@@ -26,9 +30,9 @@ add_executable(matrix
   ../src/moire.hpp
   ../src/program.cpp
   ../src/program.hpp
+  ../src/text.cpp
+  ../src/text.hpp
   ../src/neomatrix.cpp
   ../src/neomatrix.hpp
-  # logo.rgb
   )
-# add_custom_command(OUTPUT logo.rgb COMMAND cmake -E copy_if_different "${CMAKE_SOURCE_DIR}/../files/logo.rgb" "logo.rgb")
 target_link_libraries(matrix ${SDL2_LIBRARY})

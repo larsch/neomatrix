@@ -1,3 +1,10 @@
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * Fire Animation
+ */
+
 #ifndef _fire_hpp_
 #define _fire_hpp_
 

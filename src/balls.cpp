@@ -1,3 +1,10 @@
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * Bouncing Balls
+ */
+
 #include "common.hpp"
 #include "pixel.hpp"
 #include "counter.hpp"

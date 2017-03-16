@@ -1,3 +1,10 @@
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * Moire Pattern
+ */
+
 #include <cmath>
 #include "display.hpp"
 #include "counter.hpp"

@@ -1,3 +1,10 @@
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * HSV-to-RGB conversion
+ */
+
 #include "hsv2rgb.hpp"
 
 pixel hsv2rgb(int h, uint8_t s, uint8_t v)

@@ -1,3 +1,10 @@
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * Metaballs
+ */
+
 #ifndef _metaballs_hpp_
 #define _metaballs_hpp_
 

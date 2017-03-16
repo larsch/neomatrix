@@ -1,3 +1,10 @@
+/*
+ * Neomatrix - Copyright (C) 2017 Lars Christensen
+ * MIT Licensed
+ *
+ * The Matrix
+ */
+
 #ifndef _matrix_hpp_
 #define _matrix_hpp_
 
