@@ -20,7 +20,6 @@ static uint16_t random_speed()
 TheMatrix::TheMatrix()
   : limiter(50)
 {
-
 #define WHITESTART 224
 
   for (int i = 0; i < WHITESTART; ++i ) {
