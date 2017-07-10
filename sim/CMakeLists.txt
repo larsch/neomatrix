@@ -39,5 +39,7 @@ add_executable(matrix
   ../src/hal9k-glitter.cpp
   ../src/hal9k-rainbow.cpp
   ../src/hal9k-wipe.cpp
+  ../src/hal9k-letter.cpp
+  ../src/hal9k-paint.cpp
   )
 target_link_libraries(matrix ${SDL2_LIBRARY})
