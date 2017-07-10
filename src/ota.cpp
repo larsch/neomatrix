@@ -26,7 +26,7 @@ void ota_init()
 
   // Hostname defaults to esp8266-[ChipID]
   Serial.println("Setting hostname");
-  ArduinoOTA.setHostname("neomatrix");
+  ArduinoOTA.setHostname("hal9k-skilt");
 
   // No authentication by default
   // ArduinoOTA.setPassword((const char *)"123");
