@@ -40,7 +40,7 @@ void neomatrix_init()
 #define FADETIME 1000
 #define FADEIN FADETIME
 #define FADEOUT (RUNTIME-FADETIME)
-#define MAX_BRIGHT 64
+#define MAX_BRIGHT 128
 
 void program_loop()
 {
