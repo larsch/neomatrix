@@ -1,9 +1,6 @@
 # NeoMatrix
 
-Source code for 24x24 neopixel (WS2812b) matrix display
-
-Runs various demo effects and pixel art (Metaballs, fire effect, The
-Matrix simulator, etc.)
+Source code for Hal9K neopixel (WS2812b) display
 
 ## Compiling for ESP8266
 
